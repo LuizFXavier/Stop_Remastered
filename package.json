@@ -1,0 +1,17 @@
+{
+  "name": "stopzin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./public/TS/main.ts",
+  "scripts": {
+    "dev": "set NODE_ENV=development && webpack --progress --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.0.4",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  }
+}

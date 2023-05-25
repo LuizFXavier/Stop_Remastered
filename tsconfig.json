@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./public/JS",
+    "rootDir": "./public/TS",
+    "declaration": true,
+    "composite": true,
+    "lib": ["DOM" , "ES6"],
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictPropertyInitialization": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "include":[
+
+    "./public/TS/"
+
+  ]
+}
