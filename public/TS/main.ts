@@ -1,4 +1,5 @@
 import Games from "./Games/Games";
+import Input from "./UI/Input";
 
 const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 Games.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -9,9 +10,17 @@ const CANVAS_X = canvas.getBoundingClientRect().x
 const CANVAS_Y = canvas.getBoundingClientRect().y
 
 window.addEventListener('click', (e) => {
-    console.log(Math.floor(e.clientX), Math.floor(e.clientY))
+    console.log(Input.clicou = e.button == 0);
+    
+    Input.clicou = e.button == 0
+
+    
 })
-// canvas.style.background = "#0FF0CB"
+
+window.addEventListener('mousemove', (e) => {
+    Input.x = e.x
+    Input.y = e.y
+})
 
 const game = new Games()
 
