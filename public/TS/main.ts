@@ -18,8 +18,8 @@ window.addEventListener('click', (e) => {
 })
 
 window.addEventListener('mousemove', (e) => {
-    Input.x = e.x
-    Input.y = e.y
+    Input.x = e.clientX
+    Input.y = e.clientY
 })
 
 const game = new Games()

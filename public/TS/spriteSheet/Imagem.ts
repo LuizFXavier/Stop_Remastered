@@ -7,11 +7,11 @@ class Imagem {
     height: number
     image: HTMLImageElement
 
-    constructor(x:number, y:number, width:number, height:number, url:string) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
+    constructor(coord: {x:number, y:number, width:number, height:number}, url:string) {
+        this.width = coord.width;
+        this.height = coord.height;
+        this.x = coord.x;
+        this.y = coord.y;
         this.image = new Image();
         this.image.src = url;
     }
