@@ -10,8 +10,8 @@ class Games {
     public static ctx: CanvasRenderingContext2D
     public static gameObjects: GameObject[] = []
 
-    public static WIDTH: number = window.innerWidth * 0.99;
-    public static HEIGHT: number = window.innerHeight * 0.99;
+    public static WIDTH: number = window.innerWidth;
+    public static HEIGHT: number = window.innerHeight;
 
     update() {
         Games.gameObjects.forEach(e => {
