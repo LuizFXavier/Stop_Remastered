@@ -1,8 +1,9 @@
 import Collision from "../math/Collision"
 import Imagem from "../spriteSheet/Imagem"
 import Input from "../UI/Input"
+import GameObject from "./GameObject"
 
-class Carta {
+class Carta  extends GameObject{
     x: number
     y: number
     width: number
@@ -16,6 +17,7 @@ class Carta {
     public static cardsCut = new Map<string, { x: number, y: number, width: number, height: number }>()
 
     constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem: Imagem) {
+        super()
         this.width = width;
         this.height = height;
         this.x = x;
@@ -26,29 +28,33 @@ class Carta {
     }
     desenhar() {
         this.imagem.desenhar(this.x, this.y, this.width, this.height)
-    }
-    colidir() {
-        if (Collision.rectangleCollision(this, { x: Input.x, y: Input.y, width: 1, height: 1 }) && Input.clicou) {
-            console.log(this.valor + this.naipe);
-            console.log(Carta.cardsCut.get(this.valor.toString() + this.naipe));
-            this.virar()
-        }
-    }
-    virar(){
-        this.virada = !this.virada
 
         if (this.virada){
             this.imagem.x = 141
             this.imagem.y = 410
         }
         else{
-            const corte = Carta.cardsCut.get(this.valor.toString() + this.naipe)
-            //@ts-ignore
-            this.imagem.x = corte.x
-            //@ts-ignore
-            this.imagem.y = corte.y
+            const corteC = Carta.cardsCut.get(this.valor.toString() + this.naipe) as { x: number, y: number, width: number, height: number }
+            
+            this.imagem.x = corteC.x
+            
+            this.imagem.y = corteC.y
 
         }
+    }
+    colidir() {
+        if (Collision.rectangleCollision(this, { x: Input.x, y: Input.y, width: 1, height: 1 }) && Input.clicou) {
+            console.log(this.valor + this.naipe);
+            
+            // this.virar()
+            return {carta:this as Carta, colidiu:true}
+        }
+        return {colidiu:false}
+    }
+    virar(){
+        this.virada = !this.virada
+
+        
     }
 
 }

@@ -10,11 +10,9 @@ const CANVAS_X = canvas.getBoundingClientRect().x
 const CANVAS_Y = canvas.getBoundingClientRect().y
 
 window.addEventListener('click', (e) => {
-    console.log(Input.clicou = e.button == 0);
     
     Input.clicou = e.button == 0
 
-    
 })
 
 window.addEventListener('mousemove', (e) => {

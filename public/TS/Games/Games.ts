@@ -2,10 +2,13 @@ import Imagem from "../spriteSheet/Imagem";
 import Carta from "../gameObject/Carta";
 import Input from "../UI/Input";
 import Baralho from "../gameObject/Baralho";
+import Mao from "../gameObject/Mao";
+import Player from "../gameObject/Player";
+import GameObject from "../gameObject/GameObject";
 
 class Games {
     public static ctx: CanvasRenderingContext2D
-    public static gameObjects: any[] = []
+    public static gameObjects: GameObject[] = []
 
     public static WIDTH: number = window.innerWidth * 0.99;
     public static HEIGHT: number = window.innerHeight * 0.99;
@@ -49,10 +52,25 @@ class Games {
 
             }
         }
-        
+
         const monte = new Baralho()
 
+        const player1 = new Player(Games.WIDTH / 2, Games.HEIGHT / 2, new Mao())
+
+        
+
+        monte.embaralhar()
+        console.log(monte);
+
+
+        monte.distribuir(player1)
+
+        player1.arrumarCartas()
+        player1.tag = "player1"
+        // console.log(monte);
+
         Games.gameObjects.push(monte)
+        Games.gameObjects.push(player1)
 
         this.render()
         this.update()

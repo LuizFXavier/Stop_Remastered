@@ -1,5 +1,6 @@
 import Imagem from "../spriteSheet/Imagem";
-declare class Carta {
+import GameObject from "./GameObject";
+declare class Carta extends GameObject {
     x: number;
     y: number;
     width: number;
@@ -17,7 +18,13 @@ declare class Carta {
     }>;
     constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem: Imagem);
     desenhar(): void;
-    colidir(): void;
+    colidir(): {
+        carta: Carta;
+        colidiu: boolean;
+    } | {
+        colidiu: boolean;
+        carta?: undefined;
+    };
     virar(): void;
 }
 export default Carta;
