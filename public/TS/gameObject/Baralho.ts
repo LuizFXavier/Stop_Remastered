@@ -1,3 +1,5 @@
+//TODO: Colisão com o próprio baralho?
+
 import Carta from "./Carta"
 import Imagem from "../spriteSheet/Imagem"
 import Mao from "./Mao"
@@ -14,8 +16,6 @@ class Baralho extends GameObject {
 
     constructor() {
         super()
-        this.create()
-
     }
 
     create() {
@@ -43,27 +43,16 @@ class Baralho extends GameObject {
             e.desenhar()
         })
     }
+    public update(): void {
+        this.colidir()
+    }
 
     colidir() {
-        // this.cartas.forEach(e => {
-        //     e.colidir()
-        // })
-        const colisor = this.cartas[this.cartas.length - 1].colidir()
         
-        if (colisor.colidiu) {
+        const colisor = this.cartas[this.cartas.length - 1].colidir()
 
-            for (let i = 0; i< Games.gameObjects.length; i++){
-                console.log(Games.gameObjects[i].tag);
-                
-                if(Games.gameObjects[i].tag === "player1"){
+        return colisor.colidiu
 
-                    //@ts-ignore
-                    Games.gameObjects[i].comprar(this.retirar())
-                }
-
-            }
-
-        }
     }
 
     retirar(): Carta {
@@ -97,6 +86,12 @@ class Baralho extends GameObject {
             player.mao.cartas.push(this.cartas[this.cartas.length - 1])
             this.cartas.pop()
         }
+    }
+
+    colocar(carta: Carta){
+        carta.x = Games.WIDTH / 2
+        carta.y = Games.HEIGHT/8
+        this.cartas.push(carta)
     }
 
 }

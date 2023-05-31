@@ -3,3 +3,8 @@
     padding: 0px;
     margin: 0px;
 }
+canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

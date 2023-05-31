@@ -1,6 +1,10 @@
 class GameObject{
 
     public tag: string
+    public x: number = 0
+    public y: number = 0
+    public width: number = 0
+    public height: number = 0
 
     constructor(){
         this.tag = ""
@@ -17,6 +21,10 @@ class GameObject{
     }
     public desenhar(){
 
+    }
+
+    public update(){
+        
     }
 }
 export default GameObject

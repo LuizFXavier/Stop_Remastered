@@ -8,9 +8,11 @@ declare class Baralho extends GameObject {
     constructor();
     create(): void;
     desenhar(): void;
-    colidir(): void;
+    update(): void;
+    colidir(): boolean;
     retirar(): Carta;
     embaralhar(): void;
     distribuir(player: Player): void;
+    colocar(carta: Carta): void;
 }
 export default Baralho;

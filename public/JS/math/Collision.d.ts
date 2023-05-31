@@ -1,3 +1,4 @@
+import GameObject from "../gameObject/GameObject";
 declare class Collision {
     static rectangleCollision(rect1: {
         x: number;
@@ -19,5 +20,9 @@ declare class Collision {
         y: number;
         radius: number;
     }): boolean;
+    static onCollision(tag: string, principal: GameObject): {
+        objeto: GameObject;
+        colidiu: boolean;
+    } | null;
 }
 export default Collision;

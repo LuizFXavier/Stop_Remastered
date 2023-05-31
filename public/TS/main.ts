@@ -5,7 +5,7 @@ const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 Games.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = window.innerHeight; 
 
 window.addEventListener('click', (e) => {
     
