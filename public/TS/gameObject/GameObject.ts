@@ -1,13 +1,17 @@
 class GameObject{
 
-    public tag: string
+    public tag: string = ""
     public x: number = 0
     public y: number = 0
     public width: number = 0
     public height: number = 0
 
-    constructor(){
-        this.tag = ""
+    constructor(tag?:string){
+        
+        if (tag){
+
+            this.tag = tag;
+        }
     }
 
     public hasCode() {

@@ -10,13 +10,13 @@ class Carta  extends GameObject{
     height: number
     valor: number
     naipe: string
-    imagem: Imagem
+    imagem: Imagem | null = null
     private virada: boolean = false
 
     public static naipes:string[] = ["PAUS","OUROS","COPAS","ESPADAS"]
     public static cardsCut = new Map<string, { x: number, y: number, width: number, height: number }>()
 
-    constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem: Imagem) {
+    constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem?: Imagem) {
         super()
         this.width = width;
         this.height = height;
@@ -24,22 +24,28 @@ class Carta  extends GameObject{
         this.y = y;
         this.valor = valor;
         this.naipe = naipe;
-        this.imagem = imagem;
+        if (imagem){
+
+            this.imagem = imagem;
+        }
     }
     desenhar() {
-        this.imagem.desenhar(this.x, this.y, this.width, this.height)
+        if (this.imagem){
 
-        if (this.virada){
-            this.imagem.x = 141
-            this.imagem.y = 410
-        }
-        else{
-            const corteC = Carta.cardsCut.get(this.valor.toString() + this.naipe) as { x: number, y: number, width: number, height: number }
-            
-            this.imagem.x = corteC.x
-            
-            this.imagem.y = corteC.y
-
+            this.imagem.desenhar(this.x, this.y, this.width, this.height)
+    
+            if (this.virada){
+                this.imagem.x = 141
+                this.imagem.y = 410
+            }
+            else{
+                const corteC = Carta.cardsCut.get(this.valor.toString() + this.naipe) as { x: number, y: number, width: number, height: number }
+                
+                this.imagem.x = corteC.x
+                
+                this.imagem.y = corteC.y
+    
+            }
         }
     }
     colidir() {

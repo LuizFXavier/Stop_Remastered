@@ -1,5 +1,6 @@
 import Carta from "./Carta"
 import GameObject from "./GameObject"
+import Baralho from "./Baralho"
 
 class Mao  extends GameObject{
     cartas: Carta[] = []
@@ -28,6 +29,11 @@ class Mao  extends GameObject{
         carta.y = this.cartas[index].y
 
         this.cartas[index] = carta
+    }
+    cortar(index:number, descarte:Baralho){
+
+        descarte.colocar(this.cartas[index])
+        this.cartas[index] = Baralho.cartaNula
     }
 }
 export default Mao

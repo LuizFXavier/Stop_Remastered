@@ -5,6 +5,7 @@ import GameObject from "./GameObject"
 import Games from "../Games/Games"
 import Collision from "../math/Collision"
 import Input from "../UI/Input"
+import Botao from "../UI/Botao"
 
 class Player extends GameObject {
     
@@ -12,9 +13,10 @@ class Player extends GameObject {
     posy: number
     mao: Mao
     comprada: Carta | null = null
+    comprou: boolean = false
 
-    constructor(x: number, y: number, mao: Mao) {
-        super()
+    constructor(tag:string, x: number, y: number, mao: Mao) {
+        super(tag)
         this.posx = x
         this.posy = y
         this.mao = mao
@@ -49,9 +51,24 @@ class Player extends GameObject {
     update() {
         this.x = Input.x
         this.y = Input.y
+        // console.log(this.comprou);
+        
+        
+        if(this.comprou){
+            //@ts-ignore
+            Games.getInterfaceByTag("descartar").visivel = true
+            let botao = Games.getInterfaceByTag("descartar") as Botao
+            if(botao.colidir()){
+                console.log(botao.colidir());
 
-        this.comprar2()
-        this.descartar()
+                this.descartar()
+            }
+        }else{
+            //@ts-ignore
+            Games.getInterfaceByTag("descartar").visivel = false
+            this.comprar()
+            this.cortar  
+        }
         this.colidir()
     }
     colidir() {
@@ -59,77 +76,69 @@ class Player extends GameObject {
 
         let colisor = this.mao.colidir()
 
-        if (colisor){
+        if (this.comprou){
+            if (colisor){
 
-            this.trocar(colisor.index)
-        }
-    }
-
-    comprar(carta: Carta) {
-        this.comprada = carta
-        console.log(this.comprada);
-
-        this.comprada.x = this.posx * (3/5)
-        this.comprada.y = this.posy
-    }
-    comprar2(){
-
-        // let colisor = Collision.onCollision("monte", this)
-        
-        // if(colisor?.colidiu){
-        //     console.log(colisor);
-        //     // @ts-ignore
-        //     this.comprada = colisor.objeto.retirar() as Carta
-        //     this.comprada.x = this.posx * (3/5)
-        //     this.comprada.y = this.posy
-        // }
-
-        for (let i = 0; i< Games.gameObjects.length; i++){
-            console.log(Games.gameObjects[i].tag);
-                    
-            if(Games.gameObjects[i].tag === "monte"){
-
-                //@ts-ignore
-                if(Games.gameObjects[i].colidir()){
-
-
-                    //@ts-ignore
-                    this.comprada = Games.gameObjects[i].retirar() as Carta
-                    this.comprada.x = this.posx * (3/5)
-                    this.comprada.y = this.posy
-                }
-                
+                this.trocar(colisor.index)
             }
-    
+        }
+        else{
+            if(colisor){
+
+                this.cortar(colisor.index)
+            }
         }
         
+    }
+    comprar(){
+
+        let monte = Games.getObjectByTag("monte") as GameObject
+        let descarte = Games.getObjectByTag("descarte") as GameObject
+        //@ts-ignore
+        if(monte.colidir()){
+            console.log(monte);
+            //@ts-ignore
+            this.comprada = monte.retirar() as Carta
+            this.comprada.x = this.posx * (3/5)
+            this.comprada.y = this.posy
+            this.comprou = true
+        }
+        //@ts-ignore
+        if(descarte.colidir()){
+            console.log(descarte);
+            //@ts-ignore
+            this.comprada = descarte.retirar() as Carta
+            this.comprada.x = this.posx * (3/5)
+            this.comprada.y = this.posy
+            this.comprou = true
+        }
     }
 
     trocar(index: number) {
 
         if (this.comprada) {
             this.mao.trocar(this.comprada, index)
+            this.comprou = false
+            this.comprada = null
         }
     }
 
     descartar(){
-        for (let i = 0; i< Games.gameObjects.length; i++){
-            console.log(Games.gameObjects[i].tag);
-                    
-            if(Games.gameObjects[i].tag === "descarte"){
 
-                //@ts-ignore
-                if(Games.gameObjects[i].colidir()){
+        let descarte = Games.getObjectByTag("descarte") as Baralho
+        
+        //@ts-ignore
+        descarte.colocar(this.comprada)
+        this.comprada = null
+        this.comprou = false
+    }
+    cortar(index: number){
+        let descarte = Games.getObjectByTag("descarte") as Baralho
+        
+        this.mao.cortar(index, descarte)
+        console.log(this.mao.cartas);
+          
 
-
-                    //@ts-ignore
-                    this.comprada = Games.gameObjects[i].colocar(this.comprada)
-                    this.comprada = null
-                }
-                
-            }
-    
-        }
     }
 
 }

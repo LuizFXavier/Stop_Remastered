@@ -14,8 +14,10 @@ class Baralho extends GameObject {
     public static widthC: number = 70
     public static heightC: number = 100
 
-    constructor() {
-        super()
+    public static cartaNula: Carta = new Carta(0,0,0,0,-1,"NULO")
+
+    constructor(tag:string) {
+        super(tag)
     }
 
     create() {
@@ -48,10 +50,12 @@ class Baralho extends GameObject {
     }
 
     colidir() {
-        
-        const colisor = this.cartas[this.cartas.length - 1].colidir()
+        if (this.cartas.length > 0){
 
-        return colisor.colidiu
+            const colisor = this.cartas[this.cartas.length - 1].colidir()
+    
+            return colisor.colidiu
+        }
 
     }
 

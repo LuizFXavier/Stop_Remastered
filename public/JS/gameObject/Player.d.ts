@@ -6,14 +6,15 @@ declare class Player extends GameObject {
     posy: number;
     mao: Mao;
     comprada: Carta | null;
-    constructor(x: number, y: number, mao: Mao);
+    comprou: boolean;
+    constructor(tag: string, x: number, y: number, mao: Mao);
     arrumarCartas(): void;
     desenhar(): void;
     update(): void;
     colidir(): void;
-    comprar(carta: Carta): void;
-    comprar2(): void;
+    comprar(): void;
     trocar(index: number): void;
     descartar(): void;
+    cortar(index: number): void;
 }
 export default Player;

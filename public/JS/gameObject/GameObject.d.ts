@@ -4,7 +4,7 @@ declare class GameObject {
     y: number;
     width: number;
     height: number;
-    constructor();
+    constructor(tag?: string);
     hasCode(): string;
     colidir(): void;
     desenhar(): void;

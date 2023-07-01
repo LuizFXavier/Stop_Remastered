@@ -7,7 +7,7 @@ declare class Carta extends GameObject {
     height: number;
     valor: number;
     naipe: string;
-    imagem: Imagem;
+    imagem: Imagem | null;
     private virada;
     static naipes: string[];
     static cardsCut: Map<string, {
@@ -16,7 +16,7 @@ declare class Carta extends GameObject {
         width: number;
         height: number;
     }>;
-    constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem: Imagem);
+    constructor(x: number, y: number, width: number, height: number, valor: number, naipe: string, imagem?: Imagem);
     desenhar(): void;
     colidir(): {
         carta: Carta;

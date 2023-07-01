@@ -5,11 +5,12 @@ declare class Baralho extends GameObject {
     cartas: Carta[];
     static widthC: number;
     static heightC: number;
-    constructor();
+    static cartaNula: Carta;
+    constructor(tag: string);
     create(): void;
     desenhar(): void;
     update(): void;
-    colidir(): boolean;
+    colidir(): boolean | undefined;
     retirar(): Carta;
     embaralhar(): void;
     distribuir(player: Player): void;

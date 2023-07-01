@@ -1,4 +1,4 @@
-//TODO: arrumar essa gambiarra do descarte
+//TODO: arrumar essa gambiarra da colidir do Player
 
 import Imagem from "../spriteSheet/Imagem";
 import Carta from "../gameObject/Carta";
@@ -7,22 +7,44 @@ import Baralho from "../gameObject/Baralho";
 import Mao from "../gameObject/Mao";
 import Player from "../gameObject/Player";
 import GameObject from "../gameObject/GameObject";
+import Interface from "../UI/Interface";
+import Botao from "../UI/Botao";
 
 class Games {
     public static ctx: CanvasRenderingContext2D
     public static gameObjects: GameObject[] = []
+    public static interfaces: Interface[] = [] 
 
     public static WIDTH: number = window.innerWidth;
     public static HEIGHT: number = window.innerHeight;
+
+    public static getObjectByTag(tag:string){
+        for(let i = 0; i < Games.gameObjects.length; i++){
+            if (Games.gameObjects[i].tag == tag){
+                return Games.gameObjects[i]
+            }
+        }
+    }
+    public static getInterfaceByTag(tag:string){
+        for(let i = 0; i < Games.interfaces.length; i++){
+            if (Games.interfaces[i].tag == tag){
+                return Games.interfaces[i]
+            }
+        }
+    }
 
     update() {
         Games.gameObjects.forEach(e => {
             e.update()
 
         })
+        // Games.interfaces.forEach(e =>{
+        //     e.update()
+        // })
         if (Input.clicou) {
             Input.clicou = !Input.clicou
         }
+        
         window.requestAnimationFrame(() => this.update())
     }
     render() {
@@ -34,6 +56,9 @@ class Games {
         Games.gameObjects.forEach(e => {
             e.desenhar()
 
+        })
+        Games.interfaces.forEach(e=>{
+            e.desenhar()
         })
 
         window.requestAnimationFrame(() => this.render())
@@ -55,37 +80,28 @@ class Games {
             }
         }
 
-        const monte = new Baralho()
+        const monte = new Baralho("monte")
         monte.create()
-        const descarte = new Baralho()
+        const descarte = new Baralho("descarte")
 
-        monte.tag = "monte"
-        descarte.tag = "descarte"
-
-        const corte = Carta.cardsCut.get("0" + Carta.naipes[1]) as { x: number, y: number, width: number, height: number }
-
-        const img_baralho = new Imagem(corte, "./public/image/do_meu_avo.png")
-
-        const carta_baralho = new Carta(Games.WIDTH /2, Games.HEIGHT/8, Baralho.widthC, Baralho.heightC, 0, Carta.naipes[1], img_baralho)
-
-        descarte.cartas.push(carta_baralho)
-
-        const player1 = new Player(Games.WIDTH / 2, Games.HEIGHT / 2, new Mao())
+        const player1 = new Player("player1", Games.WIDTH / 2, Games.HEIGHT / 2, new Mao())
 
 
         monte.embaralhar()
         console.log(monte);
 
-
         monte.distribuir(player1)
 
         player1.arrumarCartas()
-        player1.tag = "player1"
+        
         // console.log(monte);
 
         Games.gameObjects.push(monte)
         Games.gameObjects.push(descarte)
         Games.gameObjects.push(player1)
+
+        const botao1 = new Botao("descartar",100,400,50,30)
+        Games.interfaces.push(botao1)
 
         this.render()
         this.update()
