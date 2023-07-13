@@ -10,5 +10,8 @@ declare class Mao extends GameObject {
     } | null;
     trocar(carta: Carta, index: number): void;
     cortar(index: number, descarte: Baralho): void;
+    colocar(carta: Carta): void;
+    posicionar(index: number): void;
+    retirar(index: number): void;
 }
 export default Mao;

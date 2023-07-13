@@ -26,15 +26,19 @@ class Baralho extends GameObject {
 
                 let valor = j + 1
 
-                if (valor == 13 && (Carta.naipes[i] == "OUROS" || Carta.naipes[i] == "COPAS")) {
-                    valor = 0
-                }
+                // if (valor == 13 && (Carta.naipes[i] == "OUROS" || Carta.naipes[i] == "COPAS")) {
+                //     valor = 0
+                // }
+                
                 const corte = Carta.cardsCut.get(valor.toString() + Carta.naipes[i]) as { x: number, y: number, width: number, height: number }
                 const img_baralho = new Imagem(corte, "./public/image/do_meu_avo.png")
-
+                // console.log(j * 8, 0, Baralho.widthC, Baralho.heightC, valor, Carta.naipes[i]);
+                
                 const carta_baralho = new Carta(j * 8, 0, Baralho.widthC, Baralho.heightC, valor, Carta.naipes[i], img_baralho)
 
                 this.cartas.push(carta_baralho)
+                // console.log(this.cartas);
+                
             }
         }
     }
@@ -61,9 +65,7 @@ class Baralho extends GameObject {
 
     retirar(): Carta {
 
-        let temp = this.cartas[this.cartas.length - 1]
-
-        this.cartas.pop()
+        let temp = this.cartas.pop() as Carta
         
         return temp
     }
@@ -96,6 +98,9 @@ class Baralho extends GameObject {
         carta.x = Games.WIDTH / 2
         carta.y = Games.HEIGHT/8
         this.cartas.push(carta)
+    }
+    getUltima(): Carta{
+        return this.cartas[this.cartas.length - 1]
     }
 
 }

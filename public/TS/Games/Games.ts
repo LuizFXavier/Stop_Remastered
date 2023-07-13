@@ -10,7 +10,7 @@ import GameObject from "../gameObject/GameObject";
 import Interface from "../UI/Interface";
 import Botao from "../UI/Botao";
 
-class Games {
+class Games { 
     public static ctx: CanvasRenderingContext2D
     public static gameObjects: GameObject[] = []
     public static interfaces: Interface[] = [] 
@@ -69,9 +69,9 @@ class Games {
             for (let j = 0; j < 13; j++) {
                 let valor = j + 1
 
-                if (valor == 13 && (Carta.naipes[i] == "OUROS" || Carta.naipes[i] == "COPAS")) {
-                    valor = 0
-                }
+                // if (valor == 13 && (Carta.naipes[i] == "OUROS" || Carta.naipes[i] == "COPAS")) {
+                //     valor = 0
+                // }
 
                 let chave = valor.toString() + Carta.naipes[i]
 
@@ -88,7 +88,7 @@ class Games {
 
 
         monte.embaralhar()
-        console.log(monte);
+        // console.log(monte);
 
         monte.distribuir(player1)
 

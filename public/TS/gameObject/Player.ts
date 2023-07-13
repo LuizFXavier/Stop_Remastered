@@ -76,17 +76,16 @@ class Player extends GameObject {
 
         let colisor = this.mao.colidir()
 
-        if (this.comprou){
-            if (colisor){
+        if (!colisor){return}
 
-                this.trocar(colisor.index)
-            }
+        if (this.comprou){
+            let descarte = Games.getObjectByTag("descarte") as Baralho
+            //@ts-ignore
+            this.trocar(descarte, colisor)
         }
         else{
-            if(colisor){
-
-                this.cortar(colisor.index)
-            }
+            //@ts-ignore
+            this.cortar(colisor)
         }
         
     }
@@ -113,11 +112,11 @@ class Player extends GameObject {
             this.comprou = true
         }
     }
-
-    trocar(index: number) {
-
+    trocar(descarte: Baralho, card:{carta:Carta, index:number}){
+        
         if (this.comprada) {
-            this.mao.trocar(this.comprada, index)
+            this.mao.trocar(this.comprada, card.index)
+            descarte.colocar(card.carta)
             this.comprou = false
             this.comprada = null
         }
@@ -132,12 +131,33 @@ class Player extends GameObject {
         this.comprada = null
         this.comprou = false
     }
-    cortar(index: number){
+
+    cortar(card:{carta:Carta, index:number}){
         let descarte = Games.getObjectByTag("descarte") as Baralho
-        
-        this.mao.cortar(index, descarte)
-        console.log(this.mao.cartas);
-          
+        let ultDesc = descarte.getUltima() as Carta
+
+        if (!ultDesc){return}
+
+        card.carta.x = ultDesc.x
+        card.carta.y = ultDesc.y
+
+        setTimeout(()=>{
+
+            if (ultDesc.valor == card.carta.valor){
+    
+                this.mao.retirar(card.index)
+                descarte.colocar(card.carta)
+            }
+            else{
+                console.log("Corte errado");
+                card.carta.x = 0
+                card.carta.y = 200
+                
+            }
+        }, 1000)
+
+    }
+    penalidade(monte:Baralho){
 
     }
 

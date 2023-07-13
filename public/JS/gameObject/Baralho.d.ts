@@ -15,5 +15,6 @@ declare class Baralho extends GameObject {
     embaralhar(): void;
     distribuir(player: Player): void;
     colocar(carta: Carta): void;
+    getUltima(): Carta;
 }
 export default Baralho;

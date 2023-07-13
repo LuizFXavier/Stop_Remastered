@@ -1,4 +1,5 @@
 import Mao from "./Mao";
+import Baralho from "./Baralho";
 import Carta from "./Carta";
 import GameObject from "./GameObject";
 declare class Player extends GameObject {
@@ -13,8 +14,15 @@ declare class Player extends GameObject {
     update(): void;
     colidir(): void;
     comprar(): void;
-    trocar(index: number): void;
+    trocar(descarte: Baralho, card: {
+        carta: Carta;
+        index: number;
+    }): void;
     descartar(): void;
-    cortar(index: number): void;
+    cortar(card: {
+        carta: Carta;
+        index: number;
+    }): void;
+    penalidade(monte: Baralho): void;
 }
 export default Player;

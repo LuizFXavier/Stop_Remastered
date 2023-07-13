@@ -30,9 +30,14 @@ class Mao  extends GameObject{
 
         this.cartas[index] = carta
     }
-    cortar(index:number, descarte:Baralho){
 
-        descarte.colocar(this.cartas[index])
+    colocar(carta:Carta){
+        // Escrever aqui
+    }
+    posicionar(index:number){
+        // Aqui também
+    }
+    retirar(index:number){
         this.cartas[index] = Baralho.cartaNula
     }
 }
